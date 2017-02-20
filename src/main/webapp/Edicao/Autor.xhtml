@@ -1,0 +1,34 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="titulo"></ui:define>
+    
+    <ui:define name="corpo">
+    	<f:metadata>
+    		<f:viewParam converter="autorConverter"  name="codigo" value="#{autorBean.autor}" />
+    	</f:metadata>
+    	
+    	<h:form>
+	    	<h1>Edição de Autor</h1>
+	    	
+	    	<p:messages id="message" autoUpdate="true" closable="true" />
+	    	
+	    	<p:toolbar style="margin-top: 20px">
+	    		<p:toolbarGroup>
+	    			<p:commandButton value="Salvar" id="botaoSalvar" action="#{autorBean.editar()}" update="@form" />
+	    		</p:toolbarGroup>
+	    	</p:toolbar>
+	    	
+	    	<p:panelGrid columns="2" id="painel" style="width: 100%; margin-top: 20px"
+	    			columnClasses="rotulo, campo">
+	    		
+	    		<p:outputLabel value="Nome" for="nome"/>
+	    		<p:inputText id="nome" size="60" maxlength="80"  value="#{autorBean.autor.nome}"/>
+	    	</p:panelGrid>
+    	</h:form>
+    </ui:define>
+</ui:composition>

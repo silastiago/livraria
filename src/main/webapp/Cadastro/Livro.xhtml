@@ -1,0 +1,60 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="titulo"></ui:define>
+    
+    <ui:define name="corpo">
+    
+    	<h:form>
+	    	<h1>Cadastro de Livro</h1>
+	    	
+	    	<p:messages autoUpdate="true" closable="true" />
+	    	
+	    	<p:toolbar style="margin-top: 20px">
+	    		<p:toolbarGroup>
+	    			<p:commandButton value="Salvar" id="botaoSalvar" action="#{livroBean.cadastrar()}" update="@form" />
+	    		</p:toolbarGroup>
+	    	</p:toolbar>
+	    	
+	    	<p:panelGrid columns="2" id="painel" style="width: 100%; margin-top: 20px"
+	    			columnClasses="rotulo, campo">
+	    		
+	    		<p:outputLabel value="Titulo" for="titulo"/>
+	    		<p:inputText id="titulo" size="60" maxlength="80"  value="#{livroBean.livro.titulo}"/>
+	    		
+	    		<p:outputLabel value="ISBN" for="isbn"/>
+	    		<p:inputText id="isbn" size="60" maxlength="80"  value="#{livroBean.livro.isbn}"/>
+	    		
+	    		<h:outputLabel value="Preço:" for="preco" />
+				<p:inputText id="preco" value="#{livroBean.livro.preco}" />
+				
+				<h:outputLabel value="Quantidade:" for="quantidade" />
+				<p:inputText id="quantidade" value="#{livroBean.livro.quantidade}" />
+				
+				<h:outputLabel value="Data de Lançamento:" for="dataLancamento" />
+				<p:calendar id="dataLancamento" value="#{livroBean.livro.dataLancamento.time}" 
+							    pattern="dd/MM/yyyy" mask="true" navigator="true" showOn="button">
+				<f:convertDateTime pattern="dd/MM/yyyy" type="both" dateStyle="short" timeZone="GMT-3"/>	    
+				</p:calendar>			    
+							    
+				<p:outputLabel value="Autores" for="autores" />
+				<p:selectManyMenu id="autores" value="#{livroBean.livro.autores}" converter="autorConverter" 
+								filter="true" filterMatchMode="contains" showCheckbox="true">
+        		<f:selectItems value="#{autorBean.listar()}" var="autor" itemValue="#{autor}" itemLabel="#{autor.nome}"/>
+        		
+        		<p:column>
+                <h:outputText styleClass="ui-theme ui-theme-#{autor.nome}" />
+            	</p:column>	
+        		
+    			</p:selectManyMenu>
+	    		
+	    		
+	    		
+	    	</p:panelGrid>
+    	</h:form>
+    </ui:define>
+</ui:composition>

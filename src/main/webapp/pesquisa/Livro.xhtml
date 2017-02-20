@@ -1,0 +1,117 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="titulo">Pesquisa de Livros</ui:define>
+    
+    <ui:define name="corpo">
+    	<h:form id="frm">
+	    	<h1>Lista de Livros Cadastrados</h1>
+	    	
+	    	<p:messages autoUpdate="true" closable="true" />
+	    	
+	    	<p:toolbar style="margin-top: 20px" id="toolbar">
+	    		<p:toolbarGroup >
+	    			<p:button value="Novo" outcome="/Cadastro/Livro" icon="ui-icon-plus"/>
+	    		</p:toolbarGroup>
+	    		
+	    		<p:separator/>
+	    		
+	    		<p:toolbarGroup >
+	    			<p:commandButton value="Editar" icon="ui-icon-pencil"
+	    				title="Editar" process="@this" action="#{livroBean.edicao()}"  
+	    				disabled="#{livroBean.livroSelecionado == null}"/>
+	    		</p:toolbarGroup>
+	    		
+	    		<p:separator/>
+	    		
+	    		<p:toolbarGroup >
+	    			<p:commandButton value="Excluir" icon="ui-icon-trash" 
+	    				disabled="#{livroBean.livroSelecionado == null}" action="#{livroBean.excluir()}"
+						title="Excluir" process="@this" update="livros toolbar"
+						onclick="if (!confirm('Deseja deletar o livro #{livroBean.livroSelecionado.titulo} ? ')) return false" />
+	    		</p:toolbarGroup>
+	    		
+	    	</p:toolbar>
+	    	
+	    	<p:dataTable id="livros"  var="livro" value="#{livroBean.listar()}"
+	    		style="margin-top: 20px" emptyMessage="Nenhum livro encontrado." rows="20"
+	    		paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom"
+				selection="#{livroBean.livroSelecionado}" selectionMode="single"
+				rowKey="#{livro.codigo}">
+	    		
+	    		<p:ajax event="rowSelect" update=":frm:toolbar" />
+				<p:ajax event="rowUnselect" update=":frm:toolbar" />
+	    		
+	    		
+	    		<p:column filterBy="#{livro.titulo}"
+					style="text-align: center; width:5%" filterMatchMode="startsWith">
+					<f:facet name="header">
+						<h:outputText value="Titulo" />
+					</f:facet>
+					<h:outputText value="#{livro.titulo}" />
+				</p:column>
+	    		
+	    		<p:column filterBy="#{livro.isbn}"
+					style="text-align: center; width:5%" filterMatchMode="startsWith">
+					<f:facet name="header">
+						<h:outputText value="ISBN" />
+					</f:facet>
+					<h:outputText value="#{livro.isbn}" />
+				</p:column>
+				
+				<p:column filterBy="#{livro.preco}"
+					style="text-align: center; width:5%" filterMatchMode="startsWith">
+					<f:facet name="header">
+						<h:outputText value="Preço" />
+					</f:facet>
+					<h:outputText value="#{livro.preco}" />
+				</p:column>
+				
+	    		<p:column filterBy="#{livro.quantidade}"
+					style="text-align: center; width:5%" filterMatchMode="startsWith">
+					<f:facet name="header">
+						<h:outputText value="Quantidade" />
+					</f:facet>
+					<h:outputText value="#{livro.quantidade}" />
+				</p:column>
+	    		
+	    		
+	    		<p:column filterBy="#{livro.titulo}"
+					style="text-align: center; width:5%" filterMatchMode="startsWith">
+					<f:facet name="header">
+						<h:outputText value="Titulo" />
+					</f:facet>
+					<h:outputText value="#{livro.titulo}" />
+				</p:column>
+	    		
+	    		<p:column filterBy="#{livro.dataLancamento.time}"
+					style="text-align: center; width:5%" filterMatchMode="startsWith">
+					<f:facet name="header">
+						<h:outputText value="Data de Lançamento" />
+					</f:facet>
+					<h:outputText value="#{livro.dataLancamento.time}" >
+					<f:convertDateTime pattern="dd/MM/yyyy" type="both" dateStyle="short" timeZone="GMT-3"/>
+					</h:outputText>
+				</p:column>	    		
+	    		
+	    		<p:column style="text-align: center; width:5%" contains="startsWith">
+					<f:facet name="header">
+						<h:outputText value="Autores" />
+					</f:facet>
+					<ui:repeat var="autor" value="#{livro.autores}">
+						<h:outputText value="#{autor.nome}" />
+						<br></br>
+					</ui:repeat>
+				</p:column>
+	    		
+	    		
+	    		
+	    		
+	    	</p:dataTable>
+    	</h:form>
+    </ui:define>
+</ui:composition>

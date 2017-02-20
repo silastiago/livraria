@@ -1,0 +1,58 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="titulo">Pesquisa de produtos</ui:define>
+    
+    <ui:define name="corpo">
+    	<h:form id="frm">
+	    	<h1>Lista de Autores Cadastrados</h1>
+	    	
+	    	<p:messages autoUpdate="true" closable="true" />
+	    	
+	    	<p:toolbar style="margin-top: 20px" id="toolbar">
+	    		<p:toolbarGroup >
+	    			<p:button value="Novo" outcome="/Cadastro/Autor" icon="ui-icon-plus"/>
+	    		</p:toolbarGroup>
+	    		
+	    		<p:separator/>
+	    		
+	    		<p:toolbarGroup >
+	    			<p:commandButton value="Editar" icon="ui-icon-pencil"
+	    				title="Editar" process="@this" action="#{autorBean.edicao()}"  
+	    				disabled="#{autorBean.autorSelecionado == null}"/>
+	    		</p:toolbarGroup>
+	    		
+	    		<p:separator/>
+	    		
+	    		<p:toolbarGroup >
+	    			<p:commandButton value="Excluir" icon="ui-icon-trash" 
+	    				disabled="#{autorBean.autorSelecionado == null}" action="#{autorBean.excluir()}"
+						title="Excluir" process="@this" update="autores toolbar"
+						onclick="if (!confirm('Deseja deletar o Autor #{autorBean.autorSelecionado.nome} ? ')) return false" />
+	    		</p:toolbarGroup>
+	    		
+	    			
+	    		
+	    	</p:toolbar>
+	    	
+	    	<p:dataTable id="autores"  var="autor" value="#{autorBean.listar()}"
+	    		style="margin-top: 20px" emptyMessage="Nenhum autor encontrado." rows="20"
+	    		paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom"
+				selection="#{autorBean.autorSelecionado}" selectionMode="single"
+				rowKey="#{autor.codigo}">
+	    		
+	    		<p:ajax event="rowSelect" update=":frm:toolbar" />
+				<p:ajax event="rowUnselect" update=":frm:toolbar" />
+	    		
+	    		<p:column headerText="Nome">
+	    			<h:outputText value="#{autor.nome}" />
+	    		</p:column>
+	    		
+	    	</p:dataTable>
+    	</h:form>
+    </ui:define>
+</ui:composition>
