@@ -115,6 +115,7 @@ public class Livro implements Serializable {
 		long temp;
 		temp = Double.doubleToLongBits(preco);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + quantidade;
 		result = prime * result + ((titulo == null) ? 0 : titulo.hashCode());
 		return result;
 	}
@@ -149,6 +150,8 @@ public class Livro implements Serializable {
 		} else if (!isbn.equals(other.isbn))
 			return false;
 		if (Double.doubleToLongBits(preco) != Double.doubleToLongBits(other.preco))
+			return false;
+		if (quantidade != other.quantidade)
 			return false;
 		if (titulo == null) {
 			if (other.titulo != null)
