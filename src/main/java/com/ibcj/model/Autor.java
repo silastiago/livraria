@@ -75,5 +75,4 @@ public class Autor implements Serializable{
 			return false;
 		return true;
 	}
-	
 }

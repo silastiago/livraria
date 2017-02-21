@@ -48,7 +48,6 @@ public class Venda implements Serializable{
 		this.quantidade = quantidade;
 	}
 	
-	@NotNull(message = "Livro deve ser informado")
 	@ManyToOne
 	@JoinColumn(name="codigo_livro", referencedColumnName="codigo")
 	public Livro getLivro() {
@@ -88,5 +87,5 @@ public class Venda implements Serializable{
 		if (quantidade != other.quantidade)
 			return false;
 		return true;
-	}	
+	}
 }

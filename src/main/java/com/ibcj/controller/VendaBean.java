@@ -42,10 +42,10 @@ public class VendaBean implements Serializable{
 	 */
 	public void cadastrar(){
 		//Esta linha salva a entidade Venda.
-		Livro livro = new Livro();
-		livro = venda.getLivro();
+		//Livro livro = new Livro();
+		//livro = venda.getLivro();
 		
-		System.out.println("Numero de livros: " + livro.getQuantidade());
+		System.out.println("Numero de livros: " + venda.getLivro().getQuantidade());
 		
 		//vendaService.salvar(venda);
 		FacesUtil.addInfoMessage("Venda Criado com sucesso");

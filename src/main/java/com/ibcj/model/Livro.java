@@ -48,7 +48,6 @@ public class Livro implements Serializable {
 		this.codigo = codigo;
 	}
 
-
 	@Column
 	public String getTitulo() {
 		return titulo;

@@ -23,6 +23,7 @@ public class LivroConversor implements Converter{
 		Livro retorno = null;
 			
 		if (value != null) {
+			
 			retorno = livros.porCodigo(new Integer(value));
 		}
 
@@ -33,6 +34,7 @@ public class LivroConversor implements Converter{
 		
 		if (value != null) {
 			Livro livro = (Livro) value;
+			
 			return livro.getCodigo() == null ? null : livro.getCodigo().toString();
 
 		}

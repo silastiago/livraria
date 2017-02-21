@@ -26,10 +26,10 @@
 	    		<p:outputLabel value="Quantiddade" for="quantidade"/>
 	    		<p:inputText id="quantidade" maxlength="80"  value="#{vendaBean.venda.quantidade}"/>
 	    		
-	    		<p:outputLabel value="Livro" for="livro" />
-				<p:selectOneMenu id="livro" value="#{vendaBean.venda.livro}" >
+	    		<p:outputLabel value="Livro" for="ebook" />
+				<p:selectOneMenu id="ebook" value="#{vendaBean.venda.livro}" label="Livro">
 				<f:selectItem itemLabel="Selecione o Livro " noSelectionOption="true" />
-        		<f:selectItems value="#{livroBean.listar()}" var="livros" itemValue="#{livros}" itemLabel="#{livros.titulo}"/>        		
+        		<f:selectItems value="#{livroBean.listar()}" var="livro" itemValue="#{livro}" itemLabel="#{livro.titulo}"/>        		
     			</p:selectOneMenu>
 	    		
 	    	</p:panelGrid>
