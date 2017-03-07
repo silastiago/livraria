@@ -9,7 +9,7 @@ import com.ibcj.model.Livro;
 import com.ibcj.repository.Livros;
 import com.ibcj.util.cdi.CDIServiceLocator;
 
-@FacesConverter(forClass = Livro.class)
+@FacesConverter(value="livroConverter")
 public class LivroConversor implements Converter{
 
 	private Livros livros;
@@ -25,6 +25,7 @@ public class LivroConversor implements Converter{
 		if (value != null) {
 			
 			retorno = livros.porCodigo(new Integer(value));
+			
 		}
 
 		return retorno;
@@ -33,6 +34,7 @@ public class LivroConversor implements Converter{
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
 		
 		if (value != null) {
+			
 			Livro livro = (Livro) value;
 			
 			return livro.getCodigo() == null ? null : livro.getCodigo().toString();

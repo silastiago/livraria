@@ -9,9 +9,9 @@
     
     <ui:define name="corpo">
     	<f:metadata>
-    		<f:viewParam  name="codigo" value="#{livroBean.livro}" />
+    		<f:viewParam converter="livroConverter" name="codigo" value="#{livroBean.livro}" />
     	</f:metadata>
-    
+
     	<h:form>
 	    	<h1>Edição de Livro</h1>
 	    	
@@ -36,7 +36,7 @@
 				<p:inputText id="preco" value="#{livroBean.livro.preco}" />
 				
 				<h:outputLabel value="Quantidade:" for="quantidade" />
-				<p:inputText id="quantidade" value="#{livroBean.livro.quantidade}" />
+	    		<p:spinner id="quantidade" min="0" value="#{livroBean.livro.quantidade}" />
 				
 				<h:outputLabel value="Data de Lançamento:" for="dataLancamento" />
 				<p:calendar id="dataLancamento" value="#{livroBean.livro.dataLancamento.time}" 

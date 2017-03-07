@@ -1,6 +1,7 @@
 package com.ibcj.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -16,6 +17,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.NumberFormat;
 
 /** Esta Classe que possui os metodos de acesso getter e setters que representa um usuario do sistema, 
  * e tamb�m possui o mapeamento relacional das tabelas via hibernate, da entidade Pessoa.
@@ -33,7 +36,7 @@ public class Livro implements Serializable {
 	private Integer codigo;
 	private String titulo;
 	private String isbn;
-	private double preco;
+	private BigDecimal preco;
 	private int quantidade;
 	private Calendar dataLancamento = Calendar.getInstance();
 	private List<Autor> autores = new ArrayList<Autor>();
@@ -66,11 +69,12 @@ public class Livro implements Serializable {
 	}
 
 	@Column
-	public double getPreco() {
+	@NumberFormat(pattern="#,###0.00")
+	public BigDecimal getPreco() {
 		return preco;
 	}
 
-	public void setPreco(double preco) {
+	public void setPreco(BigDecimal preco) {
 		this.preco = preco;
 	}
 
@@ -107,15 +111,7 @@ public class Livro implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((autores == null) ? 0 : autores.hashCode());
 		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
-		result = prime * result + ((dataLancamento == null) ? 0 : dataLancamento.hashCode());
-		result = prime * result + ((isbn == null) ? 0 : isbn.hashCode());
-		long temp;
-		temp = Double.doubleToLongBits(preco);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + quantidade;
-		result = prime * result + ((titulo == null) ? 0 : titulo.hashCode());
 		return result;
 	}
 
@@ -128,35 +124,13 @@ public class Livro implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Livro other = (Livro) obj;
-		if (autores == null) {
-			if (other.autores != null)
-				return false;
-		} else if (!autores.equals(other.autores))
-			return false;
 		if (codigo == null) {
 			if (other.codigo != null)
 				return false;
 		} else if (!codigo.equals(other.codigo))
 			return false;
-		if (dataLancamento == null) {
-			if (other.dataLancamento != null)
-				return false;
-		} else if (!dataLancamento.equals(other.dataLancamento))
-			return false;
-		if (isbn == null) {
-			if (other.isbn != null)
-				return false;
-		} else if (!isbn.equals(other.isbn))
-			return false;
-		if (Double.doubleToLongBits(preco) != Double.doubleToLongBits(other.preco))
-			return false;
-		if (quantidade != other.quantidade)
-			return false;
-		if (titulo == null) {
-			if (other.titulo != null)
-				return false;
-		} else if (!titulo.equals(other.titulo))
-			return false;
 		return true;
 	}
+
+	
 }

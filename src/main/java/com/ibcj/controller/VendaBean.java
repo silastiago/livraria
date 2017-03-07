@@ -5,8 +5,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.view.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -42,13 +42,28 @@ public class VendaBean implements Serializable{
 	 */
 	public void cadastrar(){
 		//Esta linha salva a entidade Venda.
-		//Livro livro = new Livro();
-		//livro = venda.getLivro();
+		Livro livro = new Livro();
+		livro = venda.getLivro();
+		int quantidadeVendaLivro = 0;
+		int estoqueLivro = 0;
 		
-		System.out.println("Numero de livros: " + venda.getLivro().getQuantidade());
+		
+		quantidadeVendaLivro = livro.getQuantidade();
+		estoqueLivro = venda.getQuantidade();
+				
+		if (quantidadeVendaLivro < estoqueLivro) {
+			
+			
+			FacesUtil.addErrorMessage("Temos apenas "+estoqueLivro + " livros no estoque atualmente");
+		}else{
+			FacesUtil.addInfoMessage("Venda Criado com sucesso");
+		}
+		
+		
+		
 		
 		//vendaService.salvar(venda);
-		FacesUtil.addInfoMessage("Venda Criado com sucesso");
+		
 	}
 	
 	public void editar(){

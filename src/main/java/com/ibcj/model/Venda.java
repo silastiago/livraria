@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 /** Esta Classe que possui os metodos de acesso getter e setters que representa um usuario do sistema, 
  * e tamb�m possui o mapeamento relacional das tabelas via hibernate, da entidade Pessoa.
@@ -61,8 +60,6 @@ public class Venda implements Serializable{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
-		result = prime * result + ((livro == null) ? 0 : livro.hashCode());
-		result = prime * result + quantidade;
 		return result;
 	}
 	@Override
@@ -79,13 +76,6 @@ public class Venda implements Serializable{
 				return false;
 		} else if (!codigo.equals(other.codigo))
 			return false;
-		if (livro == null) {
-			if (other.livro != null)
-				return false;
-		} else if (!livro.equals(other.livro))
-			return false;
-		if (quantidade != other.quantidade)
-			return false;
 		return true;
-	}
+	}	
 }
